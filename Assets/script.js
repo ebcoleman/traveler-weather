@@ -1,0 +1,1 @@
+var weatherAPI = "c2e41c2ad6868f94e2bbd03e123c92b8";
