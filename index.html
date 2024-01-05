@@ -15,11 +15,19 @@
     </header>
 
     <container class="columns is-mobile">
-        <div class="column">
-            <form id="citySearch">
+        <div class="column is-one-third-widescreen">
+            <!-- <form id="citySearch" >
                 <label for="cityInput">Search for a City: </label>
                 <input type= "text" id = "cityInput">
                 <button type = "submit" class="button is-normal is-responsive">Search</button>
+            </form> -->
+            <form class="field has-addons">
+                <input class="cityInput" type="text" placeholder="Search for a City">
+                <div class="control">
+                  <a class="button is-info">
+                    Search
+                  </a>
+                </div>
             </form>
 
             <ul id="searchResults">
@@ -32,14 +40,15 @@
         </div>
 
         <div class="column">
-            <section id = "currentWeather">
-                <p>CURRENT WEATHER TO SHOW HERE</p>
 
+            <section id = "currentWeather">
+                <p>CURRENT WEATHER TO SHOW HERE </p>
             </section>
 
             <section id = "forcast">
                     <p>FIVE DAY FORCAST TO SHOW HERE</p>
             </section>
+            
         </div>
     </container>
    
