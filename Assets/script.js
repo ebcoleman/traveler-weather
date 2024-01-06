@@ -23,12 +23,22 @@ function updateWeatherData() {
 
     // Update current weather
     if (weatherData.length > 0) {
-        var currentWeatherData = weatherData[0]; // Assuming the first element is the current weather
+        var currentWeatherData = weatherData[0]; 
+        
         var currentWeatherInfo = document.createElement("div");
 
         var cityElement = document.createElement("h2");
         cityElement.textContent = currentWeatherData.city;
         currentWeatherInfo.appendChild(cityElement);
+
+        var weatherIconElement = document.createElement("img");
+        weatherIconElement.src = `https://openweathermap.org/img/w/${currentWeatherData.weatherIcon}.png`;
+        weatherIconElement.alt = "Weather Icon";
+        currentWeatherInfo.appendChild(weatherIconElement);
+
+        var dateElement = document.createElement("p");
+        dateElement.textContent = currentWeatherData.date;
+        currentWeatherInfo.appendChild(dateElement);
 
         var temperatureElement = document.createElement("p");
         temperatureElement.textContent = "Temperature: " + currentWeatherData.temperature + " degrees";
@@ -83,9 +93,13 @@ function fetchWeatherData(city) {
             var humidity = data.list[0].main.humidity;
             var temperature = data.list[0].main.temp;
             var windSpeed = data.list[0].wind.speed;
+            var weatherIcon = data.list[0].weather[0].icon;
+            var date = new Date(data.list[0].dt * 1000);
 
             var currentWeatherInfo = {
                 city: cityName,
+                date: formatDate(date),
+                weatherIcon: weatherIcon,
                 humidity: humidity,
                 windSpeed: windSpeed,
                 temperature: temperature,
@@ -96,9 +110,12 @@ function fetchWeatherData(city) {
             // Handle forecast data
             for (var i = 1; i < 6; i++) {
                 var forecastItem = data.list[i];
-                // Extract forecast information and add it to weatherData
+                var forecastDate = new Date(forecastItem.dt * 1000);
+               
                 weatherData.push({
-                    // Populate forecast data properties
+                    weatherIcon: forecastItem.weather[0].icon,
+                    date: formatDate(forecastDate),
+                    wind: forecastItem.wind.speed,
                 });
             }
 
@@ -109,3 +126,9 @@ function fetchWeatherData(city) {
             // Handle errors (e.g., display an error message to the user)
         });
 }
+
+function formatDate(date) {
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
