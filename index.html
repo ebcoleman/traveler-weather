@@ -9,46 +9,43 @@
     <link rel="stylesheet" href = "Assets/style.css" />
 
 </head>
+
 <body>
     <header class="content is-normal">
         <h1>Weather Dashboard</h1>
     </header>
 
-    <container class="columns is-mobile">
-        <div class="column is-one-third-widescreen">
-            <nav id="citySearch" >
-                <label for="cityInput">Search for a City: </label>
-                <input type= "text" id = "cityInput">
-                <button type = "submit" id="searchButton">Search</button>
-            </nav>
-            <!-- <form id= "searchBar" class="field has-addons">
-                <input class="cityInput" type="text" placeholder="Search for a City">
-                <div class="control">
-                  <a class="button is-info">
-                    Search
-                  </a>
-                </div>
-            </form> -->
+    <div class="container">
+        <div class="columns is-mobile">
+            <div class="column is-one-third-widescreen">
+                <nav id="citySearch" class="field is-grouped">
+                    <div class="control">
+                        <label for="cityInput" class="label">Search for a City:</label>
+                        <input type="text" id="cityInput" class="input" placeholder="Enter city name">
+                    </div>
+                    <div class="control">
+                        <button type="button" id="searchButton" class="button is-info">Search</button>
+                    </div>
+                </nav>
 
-            <ul id="searchResults">
-                
-            </ul>
+                <ul id="searchResults" class="mt-4">
+                    <!-- Previously searched cities will be listed here -->
+                </ul>
+            </div>
+
+            <div class="column">
+                <section id="currentWeather" class="mb-4">
+                    <!-- Current weather information will be displayed here -->
+                </section>
+
+                <section id="forecast">
+                    <!-- 5-day forecast information will be displayed here -->
+                </section>
+            </div>
         </div>
+    </div>
 
-        <div class="column">
-
-            <section id = "currentWeather">
-                <p>CURRENT WEATHER TO SHOW HERE </p>
-            </section>
-
-            <section id = "forecast">
-                    <p>FIVE DAY FORCAST TO SHOW HERE</p>
-            </section>
-
-        </div>
-    </container>
-   
-    
+    <script src="Assets/script.js"></script>
 </body>
 
 
