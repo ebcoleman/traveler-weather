@@ -22,10 +22,9 @@ ul{
     border-color: yellow; 
 }
 
-/* li{
-    border-style: dashed;
-    border-color: black;
-} */
+section div{
+   padding: 20px 20px 20px 20px;
+}
 
 #currentWeather{
     border-style: solid;

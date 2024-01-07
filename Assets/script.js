@@ -123,6 +123,8 @@ function fetchWeatherData(city) {
             weatherData.push(currentWeatherInfo);
 
             // Handle forecast data
+
+
             for (var i = 1; i < data.list.length; i += 8) { // Retrieve every 8th item for a 24-hour forecast
                 var forecastItem = data.list[i];
                 var forecastDate = new Date(forecastItem.dt * 1000);
