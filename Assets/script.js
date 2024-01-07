@@ -84,10 +84,7 @@ function updateWeatherData() {
 // SEARCH BUTTON - click
 searchButton.addEventListener("click", function () {
     var city = cityInput.value;
-
-    
-
-
+  
     // using the fetch function to pull the information from the API
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${weatherAPI}&units=imperial`)
         .then(response => response.json())
@@ -159,6 +156,10 @@ function updateSearchHistory() {
     searchHistory.forEach(function (city) {
         var cityElement = document.createElement("li");
         cityElement.textContent = city;
+        // adding 3 lines to create an event listener
+        cityElement.addEventListener("click", function () {
+            fetchWeatherData(city);
+        });
         searchResults.appendChild(cityElement);
     });
 
