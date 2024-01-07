@@ -89,7 +89,6 @@ searchButton.addEventListener("click", function () {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${weatherAPI}&units=imperial`)
         .then(response => response.json())
         .then(data => {
-            // Shows data for the city user searched
             console.log(data);
 
             fetchWeatherData(city);
@@ -98,7 +97,6 @@ searchButton.addEventListener("click", function () {
             console.log(error);
         });
 });
-
 
 function fetchWeatherData(city) {
     
@@ -110,7 +108,7 @@ function fetchWeatherData(city) {
           
             var cityName = data.city.name;
 
-            // Handle current weather data
+            // Handles current weather data
             var currentWeatherItem = data.list[0];
             var currentWeatherInfo = {
                 city: cityName,
@@ -122,9 +120,7 @@ function fetchWeatherData(city) {
             };
             weatherData.push(currentWeatherInfo);
 
-            // Handle forecast data
-
-
+            // Handles forecast data
             for (var i = 1; i < data.list.length; i += 8) { // Retrieve every 8th item for a 24-hour forecast
                 var forecastItem = data.list[i];
                 var forecastDate = new Date(forecastItem.dt * 1000);
@@ -142,12 +138,11 @@ function fetchWeatherData(city) {
                 searchHistory.push(city);
                 updateSearchHistory();
             }
-
+            
             updateWeatherData();
         })
         .catch(error => {
             console.log("Error fetching weather data", error);
-            // Handle errors (e.g., display an error message to the user)
         });
 }
 
@@ -158,7 +153,6 @@ function updateSearchHistory() {
     searchHistory.forEach(function (city) {
         var cityElement = document.createElement("li");
         cityElement.textContent = city;
-        // adding 3 lines to create an event listener
         cityElement.addEventListener("click", function () {
             fetchWeatherData(city);
         });

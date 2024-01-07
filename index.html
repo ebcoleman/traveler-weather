@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Salsa&display=swap" />
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href = "Assets/style.css" />
 
@@ -21,19 +19,21 @@
         <div class="columns is-mobile">
             <div class="block column is-one-third-widescreen">
                 <nav id="citySearch" class="box">
+                    
                     <div >
                         <label for="cityInput" class="label">Search for a City:</label>
                         <input type="text" id="cityInput" class="input" placeholder="Enter city name">
                     </div>
+                    
                     <div class="control">
                         <button type="button" id="searchButton" class="button is-info">Search</button>
                     </div>
                 </nav>
 
                 <ul id="searchResults" class="box">
-                    <!-- Previously searched cities will be listed here -->
-                
+                    <!-- Previously searched cities will be listed here -->              
                 </ul>
+
             </div>
 
             <div class="block column">

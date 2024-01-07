@@ -1,9 +1,12 @@
-
-/* can be removed, putting space around and in the boxes I created as a visual aid.  */
-html{
-        font-family: "Salsa", Arial, Helvetica, sans-serif;
+html {
     background-color: rgb(209, 207, 207);
 }
+
+
+/* html{
+    font-family: "Salsa", Arial, Helvetica, sans-serif;
+    background-color: rgb(209, 207, 207);
+} */
 
 header{
     border-style: solid;
@@ -14,7 +17,6 @@ header{
 nav{
     border-style: solid;
     border-color: red;
-    /* padding: 10px 10px; */
 }
 
 ul{
