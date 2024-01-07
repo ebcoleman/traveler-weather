@@ -11,17 +11,9 @@ var searchHistory = [];
 
 function updateWeatherData() {
 
-    searchResults.innerHTML = "";
     currentWeather.innerHTML = "";
     forecast.innerHTML = "";
-
-    // Update search results
-    weatherData.forEach(function (weather) {
-        var cityElement = document.createElement("li");
-        cityElement.textContent = weather.city;
-        searchResults.appendChild(cityElement);
-    });
-
+   
     // Update current weather
     if (weatherData.length > 0) {
         var currentWeatherData = weatherData[0]; 
@@ -92,6 +84,9 @@ function updateWeatherData() {
 // SEARCH BUTTON - click
 searchButton.addEventListener("click", function () {
     var city = cityInput.value;
+
+    
+
 
     // using the fetch function to pull the information from the API
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${weatherAPI}&units=imperial`)
