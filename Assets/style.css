@@ -1,25 +1,31 @@
 
 /* can be removed, putting space around and in the boxes I created as a visual aid.  */
-*{
-    padding: 10px 10px;
-    margin: 3px 3px;
+html{
+        font-family: "Salsa", Arial, Helvetica, sans-serif;
+    background-color: rgb(209, 207, 207);
 }
 
 header{
     border-style: solid;
     border-color: black;
+    
 }
 
 nav{
     border-style: solid;
     border-color: red;
-    padding: 10px 10px;
+    /* padding: 10px 10px; */
 }
 
 ul{
     border-style: solid;
     border-color: yellow; 
 }
+
+/* li{
+    border-style: dashed;
+    border-color: black;
+} */
 
 #currentWeather{
     border-style: solid;
