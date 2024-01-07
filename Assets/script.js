@@ -5,11 +5,12 @@ var searchButton = document.getElementById("searchButton");
 var searchResults = document.getElementById("searchResults");
 var currentWeather = document.getElementById("currentWeather");
 var forecast = document.getElementById("forecast");
-
 var weatherData = [];
+var searchHistory = [];
+
 
 function updateWeatherData() {
-    // Clear previous search results
+
     searchResults.innerHTML = "";
     currentWeather.innerHTML = "";
     forecast.innerHTML = "";
@@ -61,6 +62,28 @@ function updateWeatherData() {
         var forecastInfo = document.createElement("div");
 
         // Create forecast elements and append them to forecastInfo
+        var forecastDateElement = document.createElement("p");
+        forecastDateElement.textContent = forecastData.date;
+        forecastInfo.appendChild(forecastDateElement);
+
+        var forecastIconElement = document.createElement("img");
+        forecastIconElement.src = `https://openweathermap.org/img/w/${forecastData.weatherIcon}.png`;
+        forecastIconElement.alt = "Weather Icon";
+        forecastInfo.appendChild(forecastIconElement);
+
+        var forecastTemperatureElement = document.createElement("p");
+        forecastTemperatureElement.textContent = "Temperature: " + forecastData.temperature + " degrees";
+        forecastInfo.appendChild(forecastTemperatureElement);
+
+        var forecastWindElement = document.createElement("p");
+        forecastWindElement.textContent = "Wind Speed: " + forecastData.wind + " mph";
+        forecastInfo.appendChild(forecastWindElement);
+
+        var forecastHumidityElement = document.createElement("p");
+        forecastHumidityElement.textContent = "Humidity: " + forecastData.humidity;
+        forecastInfo.appendChild(forecastHumidityElement);
+
+
 
         forecast.appendChild(forecastInfo);
     }
@@ -81,42 +104,49 @@ searchButton.addEventListener("click", function () {
         })
         .catch(error => {
             console.log(error);
-            // Handle errors (e.g., display an error message to the user)
         });
 });
 
+
 function fetchWeatherData(city) {
+    
+    weatherData = [];
+
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${weatherAPI}&units=imperial`)
         .then(response => response.json())
         .then(data => {
+          
             var cityName = data.city.name;
-            var humidity = data.list[0].main.humidity;
-            var temperature = data.list[0].main.temp;
-            var windSpeed = data.list[0].wind.speed;
-            var weatherIcon = data.list[0].weather[0].icon;
-            var date = new Date(data.list[0].dt * 1000);
 
+            // Handle current weather data
+            var currentWeatherItem = data.list[0];
             var currentWeatherInfo = {
                 city: cityName,
-                date: formatDate(date),
-                weatherIcon: weatherIcon,
-                humidity: humidity,
-                windSpeed: windSpeed,
-                temperature: temperature,
+                date: formatDate(new Date(currentWeatherItem.dt * 1000)),
+                weatherIcon: currentWeatherItem.weather[0].icon,
+                temperature: currentWeatherItem.main.temp,
+                windSpeed: currentWeatherItem.wind.speed,
+                humidity: currentWeatherItem.main.humidity,
             };
-
-            weatherData.unshift(currentWeatherInfo); // Add current weather at the beginning
+            weatherData.push(currentWeatherInfo);
 
             // Handle forecast data
-            for (var i = 1; i < 6; i++) {
+            for (var i = 1; i < data.list.length; i += 8) { // Retrieve every 8th item for a 24-hour forecast
                 var forecastItem = data.list[i];
                 var forecastDate = new Date(forecastItem.dt * 1000);
-               
+
                 weatherData.push({
-                    weatherIcon: forecastItem.weather[0].icon,
                     date: formatDate(forecastDate),
-                    wind: forecastItem.wind.speed,
+                    weatherIcon: forecastItem.weather[0].icon,
+                    temperature: forecastItem.main.temp,
+                    windSpeed: forecastItem.wind.speed,
+                    humidity: forecastItem.main.humidity,
                 });
+            }
+
+            if (!searchHistory.includes(city)) {
+                searchHistory.push(city);
+                updateSearchHistory();
             }
 
             updateWeatherData();
@@ -126,6 +156,32 @@ function fetchWeatherData(city) {
             // Handle errors (e.g., display an error message to the user)
         });
 }
+
+
+function updateSearchHistory() {
+    searchResults.innerHTML = "";
+
+    searchHistory.forEach(function (city) {
+        var cityElement = document.createElement("li");
+        cityElement.textContent = city;
+        searchResults.appendChild(cityElement);
+    });
+
+    // Save search history to local storage
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+}
+
+function init() {
+    // Load search history from local storage
+    var storedSearchHistory = localStorage.getItem("searchHistory");
+    
+    if (storedSearchHistory) {
+        searchHistory = JSON.parse(storedSearchHistory);
+        updateSearchHistory();
+    }
+}
+
+init();
 
 function formatDate(date) {
     var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
